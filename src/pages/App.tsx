@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useMemo} from 'react';
 import { fetchCharacters, fetchHouses } from "../api/api";
 import { CharacterTypes, HouseTypes } from "../types/apiTypes";
+import CharactersTable from "../components/CharactersTable";
+
 
 const App = () => {
-  const [data, setData] = useState<HouseTypes>();
+  const [data, setData] = useState<CharacterTypes[]>([]);
 
   useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetchHouses();
+      const res = await fetchCharacters();
       if (res?.data) {
         setData(res.data);
       }
@@ -16,10 +18,12 @@ const App = () => {
     fetchApi();
   }, [])
 
-  console.log(data);
-
   return (
     <div className="App">
+      {/*<CharactersTable*/}
+      {/*  data={data}*/}
+      {/*/>*/}
+      <CharactersTable data={data}/>
     </div>
   );
 }

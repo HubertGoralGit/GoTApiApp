@@ -1,19 +1,20 @@
 export type CharacterTypes = {
-    aliases: Array<string>;
-    allegiances: Array<string>;
-    books: Array<string>;
-    born: string;
+    url: string;
+    name: string;
     culture: string;
+    born: string;
     died: string;
+    titles?: string[] | null;
+    aliases?: string[] | null;
+    gender?: string[] | null;
     father: string;
     mother: string;
-    name: string;
-    playedBy: Array<string>;
-    povBooks: Array<string>;
     spouse: string;
-    titles: Array<string>;
-    tvSeries: Array<string>;
-    url: string;
+    allegiances?: string[] | null;
+    books?: string[] | null;
+    povBooks?: string[] | null;
+    tvSeries?: string[] | null;
+    playedBy?: string[] | null;
 }
 
 export type HouseTypes = {
