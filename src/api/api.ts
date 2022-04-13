@@ -2,9 +2,9 @@ import axios from 'axios';
 
 const url = 'https://anapioficeandfire.com/api';
 
-export const fetchCharacters = async () => {
+export const fetchCharacters = async (page: string) => {
     return axios.get(
-        `${url}/characters`
+        `${url}/characters?page=${page}&pageSize=25`
     )
 }
 

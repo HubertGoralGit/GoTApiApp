@@ -1,29 +1,72 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, {useState, useEffect, useMemo, ChangeEvent} from 'react';
 import { fetchCharacters, fetchHouses } from "../api/api";
 import { CharacterTypes, HouseTypes } from "../types/apiTypes";
-import CharactersTable from "../components/CharactersTable";
+import CharactersTable from "../components/CharactersTable/CharactersTable";
+import FilterBar from "../components/CharactersTable/FilterBar";
+import Pagination from "../components/CharactersTable/Pagination";
 
 
 const App = () => {
   const [data, setData] = useState<CharacterTypes[]>([]);
+  const [searchText, setSearchText] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
+  const [pageNumber, setPageNumber] = useState<number>(1);
 
-  useEffect(() => {
     const fetchApi = async () => {
-      const res = await fetchCharacters();
-      if (res?.data) {
-        setData(res.data);
-      }
+        // @ts-ignore
+        const res = await fetchCharacters(pageNumber);
+        if (res?.data) {
+            setData(res.data);
+        }
     };
 
+  useEffect(() => {
     fetchApi();
   }, [])
 
+    const handlePageChange = async (number: number) => {
+        setPageNumber(number)
+        await fetchApi();
+    }
+
+  const handleInput = (event: ChangeEvent<HTMLInputElement>) => {
+    setSearchText(event.target.value);
+  }
+
+  const bySearch = (character: { [s: string]: unknown; } | ArrayLike<unknown>) => {
+    if (searchText !== '') {
+      return Object.values(character).join('').toLowerCase().includes(searchText.toLowerCase());
+    } else {
+      return data;
+    }
+  }
+
+ const byCategory = (character: string[] | null | undefined) => {
+    if (category && category !== 'any') {
+        // @ts-ignore
+        return character.toLowerCase() === category.toLowerCase();
+    } else return data;
+ }
+
+  const filteredList = () => {
+    return data
+        .filter(character => bySearch(character.culture))
+        .filter(character => byCategory(character.gender))
+  }
+
   return (
     <div className="App">
-      {/*<CharactersTable*/}
-      {/*  data={data}*/}
-      {/*/>*/}
-      <CharactersTable data={data}/>
+      <FilterBar
+        handleInput={handleInput}
+        searchText={searchText}
+        setCategory={setCategory}
+      />
+      <CharactersTable data={filteredList() ? filteredList() : data}/>
+        <Pagination
+            setPageNumber={setPageNumber}
+            pageNumber={pageNumber}
+            handlePageChange={handlePageChange}
+        />
     </div>
   );
 }
