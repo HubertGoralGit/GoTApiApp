@@ -2,6 +2,7 @@ import React from 'react';
 import { columns } from "../../utils/colums";
 import styled from 'styled-components';
 import { getAlive, getName } from "./DataFunctions";
+import { Link } from 'react-router-dom';
 
 const StyledTable = styled.table`
   border: 3px solid #000000;
@@ -32,6 +33,8 @@ const StyledTable = styled.table`
 `
 
 const CharactersTable = ({ data }: any) => {
+
+
     return (
         <StyledTable>
             <thead>
@@ -44,25 +47,23 @@ const CharactersTable = ({ data }: any) => {
             <tbody>
                 {data.map((item: any) => {
                     return (
-                        <>
-                            <tr>
-                                <td>
-                                    {getName(item.name, item.aliases)}
-                                </td>
-                                <td>
-                                    {getAlive(item.born, item.died)}
-                                </td>
-                                <td>
-                                    {item.gender}
-                                </td>
-                                <td>
-                                    {item.culture ? item.culture : 'Unknown'}
-                                </td>
-                                <td>
-                                    {item.allegiances.length ? item.allegiances : 'No allegiances'}
-                                </td>
-                            </tr>
-                        </>
+                        <tr>
+                            <td>
+                                {getName(item.name, item.aliases)}
+                            </td>
+                            <td>
+                                {getAlive(item.born, item.died)}
+                            </td>
+                            <td>
+                                {item.gender}
+                            </td>
+                            <td>
+                                {item.culture ? item.culture : 'Unknown'}
+                            </td>
+                            <td>
+                                {item.allegiances.length ? (<Link to={`house/${item.allegiances[0].split("/").pop()}`}>{item.allegiances}</Link>) : 'No allegiances'}
+                            </td>
+                        </tr>
                     )
                 })}
             </tbody>
