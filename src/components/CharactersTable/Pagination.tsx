@@ -1,12 +1,11 @@
 import React, {Dispatch, SetStateAction} from 'react';
 
 interface PaginationType {
-    setPageNumber: Dispatch<SetStateAction<number>>
     pageNumber: number;
     handlePageChange(number: number): Promise<void>;
 }
 
-const Pagination = ({ setPageNumber, pageNumber, handlePageChange }: PaginationType) => {
+const Pagination = ({ pageNumber, handlePageChange }: PaginationType) => {
 
     return (
         <div>

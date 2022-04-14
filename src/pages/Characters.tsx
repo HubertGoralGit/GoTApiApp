@@ -62,7 +62,6 @@ const Characters = () => {
       />
       <CharactersTable data={filteredList() ? filteredList() : data}/>
         <Pagination
-            setPageNumber={setPageNumber}
             pageNumber={pageNumber}
             handlePageChange={handlePageChange}
         />
