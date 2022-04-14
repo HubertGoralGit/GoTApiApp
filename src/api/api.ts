@@ -8,8 +8,8 @@ export const fetchCharacters = async (page: string) => {
     )
 }
 
-export const fetchHouses = async () => {
+export const fetchHouses = async (id: string) => {
     return axios(
-        `${url}/houses`
+        `${url}/houses/${id}`
     )
 }

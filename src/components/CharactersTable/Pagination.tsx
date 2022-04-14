@@ -1,5 +1,4 @@
 import React, {Dispatch, SetStateAction} from 'react';
-import styled from 'styled-components';
 
 interface PaginationType {
     setPageNumber: Dispatch<SetStateAction<number>>
