@@ -18,20 +18,20 @@ export type CharacterTypes = {
 }
 
 export type HouseTypes = {
-    ancestralWeapons: Array<string>;
-    cadetBranches: Array<string>;
-    coatOfArms: Array<string>;
+    url: string;
+    name: string;
+    region: string;
+    coatOfArms: string;
+    words: string;
+    titles?: string[] | null;
+    seats?: string[] | null;
     currentLord: string;
-    diedOut: string;
+    heir: string;
+    overlord: string;
     founded: string;
     founder: string;
-    heir: string;
-    name: string;
-    overlord: string;
-    region: string;
-    seats: Array<string>;
-    swornMembers: Array<string>;
-    titles: Array<string>;
-    url: string;
-    words: string;
+    diedOut: string;
+    ancestralWeapons?: null[] | null;
+    cadetBranches?: null[] | null;
+    swornMembers?: string[] | null;
 }
