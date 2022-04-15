@@ -10,10 +10,10 @@ const Characters = () => {
   const [searchText, setSearchText] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [pageNumber, setPageNumber] = useState<number>(1);
+  const [pageSize, setPageSize] = useState<number>(25)
 
     const fetchApi = async () => {
-        // @ts-ignore
-        const res = await fetchCharacters(pageNumber);
+        const res = await fetchCharacters(pageNumber, pageSize);
         if (res?.data) {
             setData(res.data);
         }
@@ -21,10 +21,10 @@ const Characters = () => {
 
   useEffect(() => {
     fetchApi();
-  }, [])
+  }, [pageSize])
 
     const handlePageChange = async (number: number) => {
-        setPageNumber(number)
+        setPageNumber(number);
         await fetchApi();
     }
 
@@ -40,10 +40,11 @@ const Characters = () => {
     }
   }
 
- const byCategory = (character: string[] | null | undefined) => {
+ const byCategory = (character: (string[] | null | undefined) | string) => {
     if (category && category !== 'any') {
-        // @ts-ignore
-        return character.toLowerCase() === category.toLowerCase();
+        if (character) {
+            return typeof character === "string" && character?.toLowerCase() === category.toLowerCase();
+        }
     } else return data;
  }
 
@@ -59,10 +60,10 @@ const Characters = () => {
         handleInput={handleInput}
         searchText={searchText}
         setCategory={setCategory}
+        setPageSize={setPageSize}
       />
       <CharactersTable data={filteredList() ? filteredList() : data}/>
         <Pagination
-            setPageNumber={setPageNumber}
             pageNumber={pageNumber}
             handlePageChange={handlePageChange}
         />
