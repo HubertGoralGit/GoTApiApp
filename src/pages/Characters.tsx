@@ -10,7 +10,7 @@ const Characters = () => {
   const [searchText, setSearchText] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [pageNumber, setPageNumber] = useState<number>(1);
-  const [pageSize, setPageSize] = useState<number>(25)
+  const [pageSize, setPageSize] = useState<number>(10)
 
     const fetchApi = async () => {
         const res = await fetchCharacters(pageNumber, pageSize);
