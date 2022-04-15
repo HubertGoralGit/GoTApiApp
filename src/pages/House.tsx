@@ -3,6 +3,7 @@ import { fetchHouses } from "../api/api";
 import { HouseTypes } from "../types/apiTypes";
 import { useLocation, Link } from "react-router-dom"
 import styled from 'styled-components';
+import Loader from "../components/CharactersTable/Loader";
 
 const Wrapper = styled.div`
   width: 100%;
@@ -38,6 +39,10 @@ const House = () => {
     useEffect( () => {
         fetchApi()
     }, []);
+
+    if (!data) {
+        return <Loader />
+    }
 
     return (
         <Wrapper>

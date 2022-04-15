@@ -3,6 +3,7 @@ import { columns } from "../../utils/colums";
 import styled from 'styled-components';
 import { getAlive, getName } from "./DataFunctions";
 import { Link } from 'react-router-dom';
+import Loader from "./Loader";
 
 const StyledTable = styled.table`
   border: 3px solid #000000;
@@ -34,6 +35,9 @@ const StyledTable = styled.table`
 
 const CharactersTable = ({ data }: any) => {
 
+    if (!data.length) {
+        return <Loader />
+    }
 
     return (
         <StyledTable>
@@ -47,7 +51,7 @@ const CharactersTable = ({ data }: any) => {
             <tbody>
                 {data.map((item: any) => {
                     return (
-                        <tr>
+                        <tr data-testid="characters-table-row">
                             <td>
                                 {getName(item.name, item.aliases)}
                             </td>
